@@ -1,0 +1,11 @@
+name: covid19
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7
+  - requests
+  - beautifulsoup4
+  - pypdf2
+  - google-api-python-client 
+  - google-auth-httplib2
+  - google-auth-oauthlib
