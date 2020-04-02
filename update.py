@@ -1,4 +1,4 @@
-# built-in modules 
+# built-in modules
 import datetime
 import glob
 import os
@@ -66,7 +66,7 @@ def main():
     if len(info) == 0:
         print("no new information to update")
         sys.exit(0)
-    
+
     # append info to sheet
     append_to_sheet(sheet_api, info, SHEET_ID, DATA_RANGE)
 
@@ -98,6 +98,8 @@ def get_links(soup):
         text = re.sub('[%s]' % PUNCTUATION, ' ', text)
         # remove double spaces
         text = re.sub(' +', ' ', text)
+        # remove ordinal suffix
+        text = re.sub(r'(\d+)(st|nd|rd|th)', r'\1', text)
         # remove links to statements & cases by zip code
         if re.search('statement|zip code', text):
             continue
@@ -134,7 +136,7 @@ def get_links(soup):
         dt = dt.strftime(FILE_DT_FMT)
         links[dt] = links[text]
         del links[text]
-                
+
     return links
 
 
@@ -261,7 +263,7 @@ def parse_pdfs(pdf_dir, last_update):
 
         # append vals info tuple
         info.append(vals)
-    
+
     return info
 
 
@@ -279,7 +281,7 @@ def search_for(regex, txt):
 
 def parse_pdf(filepath):
     """read and extract text from pdf"""
-    
+
     out = ''
     pdf = PyPDF2.PdfFileReader(filepath)
     for page in pdf.pages:
